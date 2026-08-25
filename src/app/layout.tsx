@@ -21,7 +21,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <div className="noise" aria-hidden="true"></div>
+        {children}
+      </body>
     </html>
   );
 }

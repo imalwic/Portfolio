@@ -1,19 +1,63 @@
 'use client';
 import styles from './page.module.css';
 import { useEffect, useState } from 'react';
+import { 
+  SiTypescript, SiJavascript, 
+  SiNestjs, SiSpringboot, SiNextdotjs, SiTailwindcss, 
+  SiPostgresql, SiMysql, SiMongodb, SiFirebase, 
+  SiPostman, SiCucumber, 
+  SiSwagger 
+} from 'react-icons/si';
+import { FaDatabase, FaAws, FaJava, FaPython, FaHtml5, FaNodeJs, FaReact, FaDocker, FaGitAlt, FaGithub, FaJira, FaLeaf, FaArrowRight, FaDownload } from 'react-icons/fa';
 
 export default function Home() {
-  const [roleText, setRoleText] = useState('Full Stack Developer');
+  const [roleText, setRoleText] = useState('');
+  const [loading, setLoading] = useState(true);
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [loopNum, setLoopNum] = useState(0);
+  const [typingSpeed, setTypingSpeed] = useState(150);
+
+  useEffect(() => {
+    // Hide splash screen after 2.5 seconds
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 2500);
+    return () => clearTimeout(timer);
+  }, []);
 
   useEffect(() => {
     const roles = ['Full Stack Developer', 'Software Engineer', 'UI/UX Enthusiast'];
-    let idx = 0;
-    const interval = setInterval(() => {
-      idx = (idx + 1) % roles.length;
-      setRoleText(roles[idx]);
-    }, 3000);
-    return () => clearInterval(interval);
-  }, []);
+    let timer: ReturnType<typeof setTimeout>;
+    
+    const handleTyping = () => {
+      const i = loopNum % roles.length;
+      const fullText = roles[i];
+
+      setRoleText(
+        isDeleting 
+          ? fullText.substring(0, roleText.length - 1) 
+          : fullText.substring(0, roleText.length + 1)
+      );
+
+      setTypingSpeed(isDeleting ? 30 : 100); // Deletes faster, types naturally
+
+      if (!isDeleting && roleText === fullText) {
+        // Pause at the end of typing
+        timer = setTimeout(() => setIsDeleting(true), 1500);
+      } else if (isDeleting && roleText === '') {
+        // Pause before typing the next word
+        setIsDeleting(false);
+        setLoopNum(loopNum + 1);
+        timer = setTimeout(() => {}, 500); 
+      } else {
+        // Normal typing/deleting speed
+        timer = setTimeout(handleTyping, typingSpeed);
+      }
+    };
+
+    timer = setTimeout(handleTyping, typingSpeed);
+    return () => clearTimeout(timer);
+  }, [roleText, isDeleting, loopNum, typingSpeed]);
 
   const projects = [
     {
@@ -35,6 +79,12 @@ export default function Home() {
 
   return (
     <>
+      {/* Splash Screen */}
+      <div className={`${styles.splashScreen} ${!loading ? styles.hidden : ''}`}>
+        <div className={styles.splashLogo}>IMALWIC.</div>
+        <div className={styles.splashName}>Imal Wickrama Arachchi</div>
+      </div>
+
       <header className={styles.header}>
         <div className={styles.logo}>IMALWIC.</div>
         <div style={{display: 'flex', alignItems: 'center'}}>
@@ -53,7 +103,16 @@ export default function Home() {
 
       <main className={styles.main}>
         {/* Hero Section */}
+        {/* Hero Section */}
         <section className={styles.hero}>
+          {/* Huge Background Text Marquee */}
+          <div className={styles.heroBgMarquee}>
+            <div className={styles.heroBgMarqueeTrack}>
+              <span>FULL STACK DEVELOPER • SPRING BOOT • NEXT.JS • REACT • </span>
+              <span>FULL STACK DEVELOPER • SPRING BOOT • NEXT.JS • REACT • </span>
+            </div>
+          </div>
+
           <div className={styles.heroContent}>
             <div className={styles.availabilityBadge}>
               <span className={styles.dot}></span>
@@ -67,37 +126,70 @@ export default function Home() {
               I'm a <span className={styles.highlightRole}>{roleText}</span> <span className="animate-pulse">|</span>
             </p>
             
-            <a href="#resume" className={styles.resumeButton}>View My Resume</a>
+            <div className={styles.heroAction}>
+              <div className={styles.buttonGroup}>
+                <a href="#projects" className={styles.primaryButton}>Explore Projects <FaArrowRight /></a>
+                <a href="/resume.pdf" download className={styles.secondaryButton}><FaDownload size={14} /> CV</a>
+              </div>
+              
+              <div className={styles.heroStats}>
+                <div className={styles.statItem}>
+                  <h3 className={styles.statNumber}>4+</h3>
+                  <p className={styles.statLabel}>Projects<br/>Completed</p>
+                </div>
+                <div className={styles.statDivider}></div>
+                <div className={styles.statItem}>
+                  <h3 className={styles.statNumber}>IT</h3>
+                  <p className={styles.statLabel}>Undergraduate<br/>UoM</p>
+                </div>
+              </div>
+            </div>
           </div>
 
           <div className={styles.heroImageContainer}>
-            {/* Placeholder for Profile Picture, styled as a subtle gradient circle for now */}
             <div className={styles.heroImageCircle}>
-               {/* Replace with actual image: <img src="/profile.png" alt="Profile" /> */}
-            </div>
-            
-            <div className={styles.heroSocials}>
-              <a href="mailto:hello@imalwic.com" className={styles.heroSocialBtn} aria-label="Email">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
-              </a>
-              <a href="https://linkedin.com/in/Imal-Wickrama-Arachchi" target="_blank" rel="noopener noreferrer" className={styles.heroSocialBtn} aria-label="LinkedIn">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.13 1.45-2.13 2.94v5.67H9.37V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.38-1.85 3.61 0 4.28 2.38 4.28 5.47v6.27ZM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13ZM7.12 20.45H3.56V9h3.56v11.45ZM22.22 0H1.77C.79 0 0 .77 0 1.72v20.55C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.72V1.72C24 .77 23.2 0 22.22 0Z"></path></svg>
-              </a>
-              <a href="https://github.com/imalwic" target="_blank" rel="noopener noreferrer" className={styles.heroSocialBtn} aria-label="GitHub">
-                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.56v-2.18c-3.2.7-3.88-1.36-3.88-1.36-.52-1.33-1.28-1.69-1.28-1.69-1.05-.72.08-.71.08-.71 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.71 1.26 3.37.96.1-.75.4-1.26.73-1.55-2.55-.29-5.23-1.28-5.23-5.7 0-1.26.45-2.29 1.19-3.09-.12-.29-.51-1.47.11-3.07 0 0 .97-.31 3.18 1.18.92-.26 1.91-.39 2.89-.39.98 0 1.97.13 2.89.39 2.21-1.49 3.18-1.18 3.18-1.18.62 1.6.23 2.78.11 3.07.74.8 1.19 1.83 1.19 3.09 0 4.43-2.69 5.41-5.25 5.69.41.36.78 1.06.78 2.13v3.16c0 .31.21.68.8.56C20.21 21.39 23.5 17.08 23.5 12 23.5 5.65 18.35.5 12 .5z"></path></svg>
-              </a>
+               <img src="/profile.jpeg" alt="Imal Wickrama Arachchi" className={styles.profileImage} />
             </div>
           </div>
         </section>
+
+        {/* Infinite Tech Marquee */}
+        <div className={styles.marqueeContainer}>
+          <div className={styles.marqueeTrack}>
+            <div className={styles.marqueeContent}>
+              <span className={styles.marqueeItem}><span className={styles.marqueeDot}></span>Java</span>
+              <span className={styles.marqueeItem}><span className={styles.marqueeDot}></span>Spring Boot</span>
+              <span className={styles.marqueeItem}><span className={styles.marqueeDot}></span>React</span>
+              <span className={styles.marqueeItem}><span className={styles.marqueeDot}></span>Next.js</span>
+              <span className={styles.marqueeItem}><span className={styles.marqueeDot}></span>Node.js</span>
+              <span className={styles.marqueeItem}><span className={styles.marqueeDot}></span>NestJS</span>
+              <span className={styles.marqueeItem}><span className={styles.marqueeDot}></span>TypeScript</span>
+              <span className={styles.marqueeItem}><span className={styles.marqueeDot}></span>PostgreSQL</span>
+              <span className={styles.marqueeItem}><span className={styles.marqueeDot}></span>MongoDB</span>
+              <span className={styles.marqueeItem}><span className={styles.marqueeDot}></span>Docker</span>
+              <span className={styles.marqueeItem}><span className={styles.marqueeDot}></span>AWS</span>
+            </div>
+            <div className={styles.marqueeContent}>
+              <span className={styles.marqueeItem}><span className={styles.marqueeDot}></span>Java</span>
+              <span className={styles.marqueeItem}><span className={styles.marqueeDot}></span>Spring Boot</span>
+              <span className={styles.marqueeItem}><span className={styles.marqueeDot}></span>React</span>
+              <span className={styles.marqueeItem}><span className={styles.marqueeDot}></span>Next.js</span>
+              <span className={styles.marqueeItem}><span className={styles.marqueeDot}></span>Node.js</span>
+              <span className={styles.marqueeItem}><span className={styles.marqueeDot}></span>NestJS</span>
+              <span className={styles.marqueeItem}><span className={styles.marqueeDot}></span>TypeScript</span>
+              <span className={styles.marqueeItem}><span className={styles.marqueeDot}></span>PostgreSQL</span>
+              <span className={styles.marqueeItem}><span className={styles.marqueeDot}></span>MongoDB</span>
+              <span className={styles.marqueeItem}><span className={styles.marqueeDot}></span>Docker</span>
+              <span className={styles.marqueeItem}><span className={styles.marqueeDot}></span>AWS</span>
+            </div>
+          </div>
+        </div>
 
         {/* About Section */}
         <section id="about" className={styles.section}>
           <h2 className={styles.sectionTitle}>About Me</h2>
           <p className={styles.aboutText}>
-            I am a Computer Science and Engineering undergraduate passionately focused on building modern, high-performance web applications. 
-            I love taking ideas from a completely blank folder to a fully deployed product, focusing on clean architecture, type-safety, and seamless user experiences. 
-            Right now, I'm deep-diving into the full-stack ecosystem with React, TypeScript, and Spring Boot.
-            Beyond writing code, I believe in continuously learning and exploring cloud foundations on AWS or experimenting with open-source tools.
+            I am an Information Technology undergraduate passionately focused on building complete, end-to-end systems — from database design and backend architecture to AI-integrated features like intelligent chatbots. I love taking a project from a blank folder to a fully working product, whether that's designing a use case diagram from scratch or shipping a mobile app people can actually use. Right now, I'm deep in the full-stack ecosystem with React, NestJS, and Spring Boot, while exploring how to weave AI-powered assistants and real-time features like QR-based check-ins into real-world platforms. I've built everything from a bilingual pharmacy chatbot to a payment-integrated event ticketing system with a live seat-mapping editor, and I care as much about clean architecture and testing as I do about the final user experience. Beyond writing code, you'll find me exploring cloud infrastructure on AWS and Docker, sharpening my Linux skills, or contributing as Design Co-Lead at my university's IEEE RAS Student Branch.
           </p>
         </section>
 
@@ -141,30 +233,140 @@ export default function Home() {
           <h2 className={styles.sectionTitle}>Tech Stack</h2>
           
           <div className={styles.techCategory}>
-            <h4 className={styles.techCategoryName}>Languages & Core</h4>
+            <h4 className={styles.techCategoryName}>Languages</h4>
             <div className={styles.techGrid}>
-              <div className={styles.techCard}><span className={styles.techName}>Java</span></div>
-              <div className={styles.techCard}><span className={styles.techName}>TypeScript</span></div>
-              <div className={styles.techCard}><span className={styles.techName}>JavaScript</span></div>
-              <div className={styles.techCard}><span className={styles.techName}>HTML/CSS</span></div>
+              <div className={styles.techCard}>
+                <FaJava size={32} color="#007396" className={styles.techIcon} />
+                <span className={styles.techName}>Java</span>
+              </div>
+              <div className={styles.techCard}>
+                <SiTypescript size={32} color="#3178C6" className={styles.techIcon} />
+                <span className={styles.techName}>TypeScript</span>
+              </div>
+              <div className={styles.techCard}>
+                <SiJavascript size={32} color="#F7DF1E" className={styles.techIcon} />
+                <span className={styles.techName}>JavaScript</span>
+              </div>
+              <div className={styles.techCard}>
+                <FaPython size={32} color="#3776AB" className={styles.techIcon} />
+                <span className={styles.techName}>Python</span>
+              </div>
+              <div className={styles.techCard}>
+                <FaDatabase size={32} color="#4479A1" className={styles.techIcon} />
+                <span className={styles.techName}>SQL</span>
+              </div>
+              <div className={styles.techCard}>
+                <FaHtml5 size={32} color="#E34F26" className={styles.techIcon} />
+                <span className={styles.techName}>HTML/CSS</span>
+              </div>
             </div>
           </div>
 
           <div className={styles.techCategory}>
-            <h4 className={styles.techCategoryName}>Backend & Database</h4>
+            <h4 className={styles.techCategoryName}>Backend</h4>
             <div className={styles.techGrid}>
-              <div className={styles.techCard}><span className={styles.techName}>Spring Boot</span></div>
-              <div className={styles.techCard}><span className={styles.techName}>Node.js</span></div>
-              <div className={styles.techCard}><span className={styles.techName}>PostgreSQL</span></div>
+              <div className={styles.techCard}>
+                <SiNestjs size={32} color="#E0234E" className={styles.techIcon} />
+                <span className={styles.techName}>NestJS</span>
+              </div>
+              <div className={styles.techCard}>
+                <FaLeaf size={32} color="#6DB33F" className={styles.techIcon} />
+                <span className={styles.techName}>Spring Boot</span>
+              </div>
+              <div className={styles.techCard}>
+                <FaNodeJs size={32} color="#339933" className={styles.techIcon} />
+                <span className={styles.techName}>Node.js</span>
+              </div>
             </div>
           </div>
 
           <div className={styles.techCategory}>
             <h4 className={styles.techCategoryName}>Frontend</h4>
             <div className={styles.techGrid}>
-              <div className={styles.techCard}><span className={styles.techName}>React</span></div>
-              <div className={styles.techCard}><span className={styles.techName}>Next.js</span></div>
-              <div className={styles.techCard}><span className={styles.techName}>Vue</span></div>
+              <div className={styles.techCard}>
+                <FaReact size={32} color="#61DAFB" className={styles.techIcon} />
+                <span className={styles.techName}>React</span>
+              </div>
+              <div className={styles.techCard}>
+                <SiNextdotjs size={32} color="#ffffff" className={styles.techIcon} />
+                <span className={styles.techName}>Next.js</span>
+              </div>
+              <div className={styles.techCard}>
+                <SiTailwindcss size={32} color="#06B6D4" className={styles.techIcon} />
+                <span className={styles.techName}>Tailwind CSS</span>
+              </div>
+            </div>
+          </div>
+
+          <div className={styles.techCategory}>
+            <h4 className={styles.techCategoryName}>Databases & Storage</h4>
+            <div className={styles.techGrid}>
+              <div className={styles.techCard}>
+                <SiPostgresql size={32} color="#4169E1" className={styles.techIcon} />
+                <span className={styles.techName}>PostgreSQL</span>
+              </div>
+              <div className={styles.techCard}>
+                <SiMysql size={32} color="#4479A1" className={styles.techIcon} />
+                <span className={styles.techName}>MySQL</span>
+              </div>
+              <div className={styles.techCard}>
+                <SiMongodb size={32} color="#47A248" className={styles.techIcon} />
+                <span className={styles.techName}>MongoDB</span>
+              </div>
+              <div className={styles.techCard}>
+                <SiFirebase size={32} color="#FFCA28" className={styles.techIcon} />
+                <span className={styles.techName}>Firebase</span>
+              </div>
+            </div>
+          </div>
+
+          <div className={styles.techCategory}>
+            <h4 className={styles.techCategoryName}>DevOps & Cloud</h4>
+            <div className={styles.techGrid}>
+              <div className={styles.techCard}>
+                <FaAws size={32} color="#FF9900" className={styles.techIcon} />
+                <span className={styles.techName}>AWS</span>
+              </div>
+              <div className={styles.techCard}>
+                <FaDocker size={32} color="#2496ED" className={styles.techIcon} />
+                <span className={styles.techName}>Docker</span>
+              </div>
+            </div>
+          </div>
+
+          <div className={styles.techCategory}>
+            <h4 className={styles.techCategoryName}>Testing</h4>
+            <div className={styles.techGrid}>
+              <div className={styles.techCard}>
+                <SiPostman size={32} color="#FF6C37" className={styles.techIcon} />
+                <span className={styles.techName}>Postman</span>
+              </div>
+              <div className={styles.techCard}>
+                <SiCucumber size={32} color="#23D96C" className={styles.techIcon} />
+                <span className={styles.techName}>Cucumber</span>
+              </div>
+            </div>
+          </div>
+
+          <div className={styles.techCategory}>
+            <h4 className={styles.techCategoryName}>Developer Tools</h4>
+            <div className={styles.techGrid}>
+              <div className={styles.techCard}>
+                <FaGitAlt size={32} color="#F05032" className={styles.techIcon} />
+                <span className={styles.techName}>Git</span>
+              </div>
+              <div className={styles.techCard}>
+                <FaGithub size={32} color="#ffffff" className={styles.techIcon} />
+                <span className={styles.techName}>GitHub</span>
+              </div>
+              <div className={styles.techCard}>
+                <SiSwagger size={32} color="#85EA2D" className={styles.techIcon} />
+                <span className={styles.techName}>Swagger</span>
+              </div>
+              <div className={styles.techCard}>
+                <FaJira size={32} color="#0052CC" className={styles.techIcon} />
+                <span className={styles.techName}>Jira</span>
+              </div>
             </div>
           </div>
         </section>
@@ -192,6 +394,54 @@ export default function Home() {
                 </div>
               </div>
             ))}
+          </div>
+        </section>
+
+        {/* Contact */}
+        <section id="contact" className={styles.section}>
+          <h2 className={styles.sectionTitle}>Let's Connect</h2>
+          <div className={styles.contactContainer}>
+            <a href="mailto:waiseelaka2002@gmail.com" className={styles.contactBtn}>
+              <div className={styles.contactIcon}>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+              </div>
+              <span>Email</span>
+            </a>
+            
+            <a href="https://wa.me/94760696010" target="_blank" rel="noopener noreferrer" className={styles.contactBtn}>
+              <div className={styles.contactIcon}>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+              </div>
+              <span>WhatsApp</span>
+            </a>
+            
+            <a href="tel:0762807271" className={styles.contactBtn}>
+              <div className={styles.contactIcon}>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+              </div>
+              <span>Call</span>
+            </a>
+            
+            <a href="https://www.linkedin.com/in/imal-wickrama-arachchi-083a67317?utm_source=share_via&utm_content=profile&utm_medium=member_android" target="_blank" rel="noopener noreferrer" className={styles.contactBtn}>
+              <div className={styles.contactIcon}>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+              </div>
+              <span>LinkedIn</span>
+            </a>
+            
+            <a href="https://github.com/Imalwic" target="_blank" rel="noopener noreferrer" className={styles.contactBtn}>
+              <div className={styles.contactIcon}>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+              </div>
+              <span>GitHub</span>
+            </a>
+            
+            <a href="https://www.facebook.com/share/1DbLmZjHdA/" target="_blank" rel="noopener noreferrer" className={styles.contactBtn}>
+              <div className={styles.contactIcon}>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+              </div>
+              <span>Facebook</span>
+            </a>
           </div>
         </section>
       </main>
