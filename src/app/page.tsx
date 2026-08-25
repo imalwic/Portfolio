@@ -199,16 +199,75 @@ export default function Home() {
           
           <div className={styles.journeyGrid}>
             <div className={styles.journeyCol}>
-              <h3>
+              <h3 className={styles.journeyTitle}>
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"></path><path d="M6 12v5c3 3 9 3 12 0v-5"></path></svg>
                 Education
               </h3>
-              <div className={styles.timeline}>
-                <div className={styles.timelineItem}>
-                  <div className={styles.timelineDate}>Present</div>
-                  <div className={styles.timelineTitle}>BSc (Hons) in Computer Science & Engineering</div>
-                  <div className={styles.timelineOrg}>University of Moratuwa</div>
+              
+              <div className={styles.customTimeline}>
+                
+                {/* UoM */}
+                <div className={styles.customTimelineItem}>
+                  <div className={styles.timelineIndicator}></div>
+                  <div className={styles.timelineCard}>
+                    <div className={styles.timelineHeader}>
+                      <div className={styles.timelineLogo}>
+                        <img src="/uom.png" alt="University of Moratuwa" />
+                      </div>
+                      <div className={styles.timelineInfo}>
+                        <span className={styles.timelineYear}>2024 - 2028</span>
+                        <h4 className={styles.timelineDegree}>Faculty of Information Technology</h4>
+                        <span className={styles.timelineSchool}>University of Moratuwa</span>
+                      </div>
+                    </div>
+                    <div className={styles.timelineDetails}>
+                      <p><span className={styles.bullet}>•</span> GPA : 3.00 / 4.00</p>
+                    </div>
+                  </div>
                 </div>
+
+                {/* A/Level */}
+                <div className={styles.customTimelineItem}>
+                  <div className={styles.timelineIndicator}></div>
+                  <div className={styles.timelineCard}>
+                    <div className={styles.timelineHeader}>
+                      <div className={styles.timelineLogo}>
+                        <img src="/rcc.jpg" alt="Rajapaksha Central College" />
+                      </div>
+                      <div className={styles.timelineInfo}>
+                        <span className={styles.timelineYear}>2019 - 2022</span>
+                        <h4 className={styles.timelineDegree}>G.C.E. Advanced Level</h4>
+                        <span className={styles.timelineSchool}>Rajapaksha Central College Weeraketiya</span>
+                      </div>
+                    </div>
+                    <div className={styles.timelineDetails}>
+                      <p><span className={styles.bullet}>•</span> Chemistry : A</p>
+                      <p><span className={styles.bullet}>•</span> Physics : A</p>
+                      <p><span className={styles.bullet}>•</span> Combined Maths : B</p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* O/Level */}
+                <div className={styles.customTimelineItem}>
+                  <div className={styles.timelineIndicator}></div>
+                  <div className={styles.timelineCard}>
+                    <div className={styles.timelineHeader}>
+                      <div className={styles.timelineLogo}>
+                        <img src="/rcc.jpg" alt="Rajapaksha Central College" />
+                      </div>
+                      <div className={styles.timelineInfo}>
+                        <span className={styles.timelineYear}>2013 - 2018</span>
+                        <h4 className={styles.timelineDegree}>G.C.E. Ordinary Level</h4>
+                        <span className={styles.timelineSchool}>Rajapaksha Central College Weeraketiya</span>
+                      </div>
+                    </div>
+                    <div className={styles.timelineDetails}>
+                      <p><span className={styles.bullet}>•</span> 7A 1B 1C</p>
+                    </div>
+                  </div>
+                </div>
+                
               </div>
             </div>
 
