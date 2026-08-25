@@ -279,23 +279,6 @@ export default function Home() {
               
               <div className={styles.customTimeline}>
                 
-                {/* Freelance */}
-                <div className={styles.customTimelineItem}>
-                  <div className={styles.timelineIndicator}></div>
-                  <div className={styles.timelineCard}>
-                    <div className={styles.timelineHeader}>
-                      <div className={styles.timelineLogo} style={{ background: '#111', border: '1px solid #333' }}>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" strokeWidth="2"><path d="M16 21v-2a4 4 0 0 0-4-4H5c-1.1 0-2 .9-2 2v2"></path><circle cx="8.5" cy="7" r="4"></circle><polyline points="17 11 19 13 23 9"></polyline></svg>
-                      </div>
-                      <div className={styles.timelineInfo}>
-                        <span className={styles.timelineYear}>Present</span>
-                        <h4 className={styles.timelineDegree}>Freelance Full Stack Developer</h4>
-                        <span className={styles.timelineSchool}>Self-Employed</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
                 {/* IEEE */}
                 <div className={styles.customTimelineItem}>
                   <div className={styles.timelineIndicator}></div>
