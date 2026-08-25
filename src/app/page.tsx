@@ -272,16 +272,81 @@ export default function Home() {
             </div>
 
             <div className={styles.journeyCol}>
-              <h3>
+              <h3 className={styles.journeyTitle}>
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
-                Experience
+                Experience & Volunteering
               </h3>
-              <div className={styles.timeline}>
-                <div className={styles.timelineItem}>
-                  <div className={styles.timelineDate}>Present</div>
-                  <div className={styles.timelineTitle}>Freelance Full Stack Developer</div>
-                  <div className={styles.timelineOrg}>Self-Employed</div>
+              
+              <div className={styles.customTimeline}>
+                
+                {/* Freelance */}
+                <div className={styles.customTimelineItem}>
+                  <div className={styles.timelineIndicator}></div>
+                  <div className={styles.timelineCard}>
+                    <div className={styles.timelineHeader}>
+                      <div className={styles.timelineLogo} style={{ background: '#111', border: '1px solid #333' }}>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" strokeWidth="2"><path d="M16 21v-2a4 4 0 0 0-4-4H5c-1.1 0-2 .9-2 2v2"></path><circle cx="8.5" cy="7" r="4"></circle><polyline points="17 11 19 13 23 9"></polyline></svg>
+                      </div>
+                      <div className={styles.timelineInfo}>
+                        <span className={styles.timelineYear}>Present</span>
+                        <h4 className={styles.timelineDegree}>Freelance Full Stack Developer</h4>
+                        <span className={styles.timelineSchool}>Self-Employed</span>
+                      </div>
+                    </div>
+                  </div>
                 </div>
+
+                {/* IEEE */}
+                <div className={styles.customTimelineItem}>
+                  <div className={styles.timelineIndicator}></div>
+                  <div className={styles.timelineCard}>
+                    <div className={styles.timelineHeader}>
+                      <div className={styles.timelineLogo}>
+                        <img src="/ieee.png" alt="IEEE RAS" />
+                      </div>
+                      <div className={styles.timelineInfo}>
+                        <span className={styles.timelineYear}>2025 - Present</span>
+                        <h4 className={styles.timelineDegree}>Co-Lead Design</h4>
+                        <span className={styles.timelineSchool}>IEEE RAS Student Branch</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* FIT Moments */}
+                <div className={styles.customTimelineItem}>
+                  <div className={styles.timelineIndicator}></div>
+                  <div className={styles.timelineCard}>
+                    <div className={styles.timelineHeader}>
+                      <div className={styles.timelineLogo}>
+                        <img src="/fit-moments.jpg" alt="FIT Moments" />
+                      </div>
+                      <div className={styles.timelineInfo}>
+                        <span className={styles.timelineYear}>2024 - Present</span>
+                        <h4 className={styles.timelineDegree}>Member</h4>
+                        <span className={styles.timelineSchool}>FIT Moments</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Rotaract */}
+                <div className={styles.customTimelineItem}>
+                  <div className={styles.timelineIndicator}></div>
+                  <div className={styles.timelineCard}>
+                    <div className={styles.timelineHeader}>
+                      <div className={styles.timelineLogo}>
+                        <img src="/rotaract.jpg" alt="Rotaract Club" />
+                      </div>
+                      <div className={styles.timelineInfo}>
+                        <span className={styles.timelineYear}>2024 - Present</span>
+                        <h4 className={styles.timelineDegree}>Member</h4>
+                        <span className={styles.timelineSchool}>Rotaract Club</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
               </div>
             </div>
           </div>
