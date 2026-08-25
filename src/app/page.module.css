@@ -14,13 +14,26 @@
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
-.logo {
+.logoContainer {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  text-decoration: none;
+}
+
+.logoImage {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.logoText {
   font-family: var(--font-sans);
   font-weight: 700;
   font-size: 1.125rem;
-  letter-spacing: 0.05em;
   color: var(--text-primary);
-  text-transform: uppercase;
 }
 
 .navLinks {

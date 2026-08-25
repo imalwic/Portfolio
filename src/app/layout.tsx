@@ -2,10 +2,13 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Imal Wickrama Arachchi - Portfolio",
+  title: "Imal Wickrama Arachchi",
   description: "Portfolio of Imal Wickrama Arachchi, Computer Science Undergraduate at University of Moratuwa. Full Stack Developer.",
+  icons: {
+    icon: '/profile.jpeg',
+  },
   openGraph: {
-    title: "Imal Wickrama Arachchi - Portfolio",
+    title: "Imal Wickrama Arachchi",
     description: "Portfolio of Imal Wickrama Arachchi, Computer Science Undergraduate at University of Moratuwa. Full Stack Developer.",
     url: "https://imalwic.github.io",
     siteName: "Imal Wickrama Arachchi",

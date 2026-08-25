@@ -86,7 +86,10 @@ export default function Home() {
       </div>
 
       <header className={styles.header}>
-        <div className={styles.logo}>IMALWIC.</div>
+        <div className={styles.logoContainer}>
+          <img src="/profile.jpeg" alt="Profile" className={styles.logoImage} />
+          <span className={styles.logoText}>Imal Wickrama Arachchi</span>
+        </div>
         <div style={{display: 'flex', alignItems: 'center'}}>
           <nav className={styles.navLinks}>
             <a href="#about">About</a>
