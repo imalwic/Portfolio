@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { ThemeProvider } from "../components/ThemeProvider";
 
 export const metadata: Metadata = {
   title: "Imal Wickrama Arachchi",
@@ -23,10 +24,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body>
-        <div className="noise" aria-hidden="true"></div>
-        {children}
+        <ThemeProvider attribute="data-theme" defaultTheme="dark" enableSystem={false}>
+          <div className="noise" aria-hidden="true"></div>
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );

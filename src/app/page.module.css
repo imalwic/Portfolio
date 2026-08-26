@@ -8,10 +8,10 @@
   justify-content: space-between;
   align-items: center;
   padding: 1rem 4rem;
-  background: rgba(10, 10, 10, 0.8);
+  background: var(--glass-bg);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  border-bottom: 1px solid var(--glass-border);
 }
 
 .logoContainer {
@@ -26,7 +26,7 @@
   height: 32px;
   border-radius: 50%;
   object-fit: cover;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid var(--glass-border);
 }
 
 .logoText {
@@ -74,12 +74,12 @@
   width: 36px;
   height: 36px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.1);
+  background: var(--glass-bg);
   display: flex;
   justify-content: center;
   align-items: center;
-  border: none;
-  color: white;
+  border: 1px solid var(--glass-border);
+  color: var(--text-primary);
   cursor: pointer;
   margin-left: 1rem;
 }
@@ -261,10 +261,10 @@
 }
 
 .secondaryButton {
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--glass-bg);
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  color: white;
+  border: 1px solid var(--glass-border);
+  color: var(--text-primary);
   padding: 0.75rem 1.5rem;
   border-radius: 8px;
   font-weight: 600;
@@ -275,7 +275,7 @@
   transition: background 0.2s, transform 0.2s;
 }
 .secondaryButton:hover {
-  background: rgba(255, 255, 255, 0.1);
+  background: var(--glass-border);
   transform: translateY(-2px);
 }
 
@@ -316,7 +316,7 @@
 .statDivider {
   width: 1px;
   height: 40px;
-  background: rgba(255, 255, 255, 0.1);
+  background: var(--glass-border);
 }
 
 .heroImageCircle {
@@ -375,9 +375,8 @@
   width: 100%;
   overflow: hidden;
   padding: 2.5rem 0;
-  background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.01) 50%, transparent);
-  border-top: 1px solid rgba(255, 255, 255, 0.03);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+  border-top: 1px solid var(--glass-border);
+  border-bottom: 1px solid var(--glass-border);
   display: flex;
 }
 
@@ -512,14 +511,14 @@
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
-  border-left: 2px solid rgba(255, 255, 255, 0.1);
+  border-left: 2px solid var(--glass-border);
   padding-left: 1.5rem;
 }
 
 .timelineItem {
   position: relative;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
   border-radius: 12px;
   padding: 1.5rem;
 }
@@ -560,7 +559,7 @@
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
-  border-left: 1px solid rgba(255, 255, 255, 0.1);
+  border-left: 1px solid var(--glass-border);
   padding-left: 2rem;
   position: relative;
   margin-top: 1rem;
@@ -583,8 +582,8 @@
 }
 
 .timelineCard {
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
   border-radius: 12px;
   padding: 1.5rem;
   transition: transform 0.2s, background 0.2s;
@@ -688,8 +687,8 @@
 }
 
 .techCard {
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
   border-radius: 50%;
   padding: 1.5rem;
   display: flex;
@@ -741,8 +740,8 @@
 }
 
 .projectCard {
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
   border-radius: 16px;
   padding: 2rem;
   display: flex;
