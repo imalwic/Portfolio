@@ -195,10 +195,10 @@ export default function Home() {
         <motion.section 
           id="about" 
           className={styles.section}
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0, y: 40, scale: 0.95, filter: 'blur(10px)' }}
+          whileInView={{ opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' }}
           viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
         >
           <h2 className={styles.sectionTitle}>About Me</h2>
           <p className={styles.aboutText}>
@@ -210,10 +210,10 @@ export default function Home() {
         <motion.section 
           id="journey" 
           className={styles.section}
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0, y: 40, scale: 0.95, filter: 'blur(10px)' }}
+          whileInView={{ opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' }}
           viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
         >
           <h2 className={styles.sectionTitle}>My Journey</h2>
           
@@ -359,10 +359,10 @@ export default function Home() {
         <motion.section 
           id="tech" 
           className={styles.section}
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0, y: 40, scale: 0.95, filter: 'blur(10px)' }}
+          whileInView={{ opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' }}
           viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
         >
           <h2 className={styles.sectionTitle}>Tech Stack</h2>
           
@@ -509,10 +509,10 @@ export default function Home() {
         <motion.section 
           id="projects" 
           className={styles.section}
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0, y: 40, scale: 0.95, filter: 'blur(10px)' }}
+          whileInView={{ opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' }}
           viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
         >
           <h2 className={styles.sectionTitle}>Projects</h2>
           <p className={styles.projectsSubtitle}>Explore some of my recent projects</p>
@@ -544,10 +544,10 @@ export default function Home() {
         <motion.section 
           id="contact" 
           className={styles.section}
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0, y: 40, scale: 0.95, filter: 'blur(10px)' }}
+          whileInView={{ opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' }}
           viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
         >
           <h2 className={styles.sectionTitle}>Let's Connect</h2>
           <div className={styles.contactContainer}>
