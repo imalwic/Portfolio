@@ -497,13 +497,124 @@
 }
 
 /* About Section */
-.aboutText {
-  max-width: 900px;
+.aboutContainer {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: center;
+  max-width: 1200px;
   margin: 0 auto;
-  text-align: center;
+}
+
+@media (max-width: 968px) {
+  .aboutContainer {
+    grid-template-columns: 1fr;
+  }
+}
+
+.aboutText {
   color: var(--text-secondary);
   line-height: 1.8;
   font-size: 1.05rem;
+  text-align: left;
+}
+
+/* Terminal Widget */
+.terminalWindow {
+  background: #111827; /* Dark background */
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px -10px rgba(0,0,0,0.5);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  font-family: 'Fira Code', 'Consolas', monospace;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  width: 100%;
+}
+
+[data-theme='light'] .terminalWindow {
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0 10px 30px -10px rgba(0,0,0,0.1);
+}
+
+.terminalHeader {
+  background: #1f2937;
+  padding: 0.75rem 1rem;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+[data-theme='light'] .terminalHeader {
+  background: #e5e7eb;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.terminalButtons {
+  display: flex;
+  gap: 8px;
+}
+
+.closeBtn, .minBtn, .maxBtn {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+.closeBtn { background: #ff5f56; }
+.minBtn { background: #ffbd2e; }
+.maxBtn { background: #27c93f; }
+
+.terminalTitle {
+  flex: 1;
+  text-align: center;
+  color: #9ca3af;
+  font-size: 0.85rem;
+  font-weight: 500;
+  margin-right: 44px; /* to offset the buttons */
+}
+
+[data-theme='light'] .terminalTitle {
+  color: #4b5563;
+}
+
+.terminalBody {
+  padding: 1.5rem;
+  color: #e5e7eb;
+  background: #111827; 
+  min-height: 300px;
+  text-align: left;
+}
+
+.terminalPrompt {
+  color: #10b981; 
+  font-weight: 600;
+}
+
+.terminalCommandText {
+  color: #e5e7eb;
+}
+
+.terminalOutputText {
+  color: #9ca3af;
+  white-space: pre-wrap;
+  margin-top: 0.25rem;
+  margin-bottom: 1rem;
+  display: block;
+}
+
+.terminalCursor {
+  display: inline-block;
+  width: 8px;
+  height: 15px;
+  background: #e5e7eb;
+  vertical-align: middle;
+  margin-left: 2px;
+  animation: terminalBlink 1s step-end infinite;
+}
+
+@keyframes terminalBlink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
 }
 
 /* Journey Section */
@@ -759,21 +870,77 @@
   background: var(--glass-bg);
   border: 1px solid var(--glass-border);
   border-radius: 16px;
-  padding: 2rem;
   display: flex;
   flex-direction: column;
+  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  height: 100%;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.projectImageWrapper {
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+  position: relative;
+}
+
+.projectImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.projectCard:hover .projectImage {
+  transform: scale(1.05);
+}
+
+.projectContent {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.projectCard:hover {
+  transform: translateY(-5px);
+  border-color: rgba(59, 130, 246, 0.5); /* Blue glow border */
+  box-shadow: 0 10px 30px -10px rgba(59, 130, 246, 0.2);
 }
 
 .projectHeader {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.projectCategory {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 600;
+  color: #10b981; /* Green accent */
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  padding: 0.25rem 0.75rem;
+  border-radius: 99px;
+  background: rgba(16, 185, 129, 0.05);
 }
 
 .projectTitle {
-  font-size: 1.25rem;
-  font-weight: 600;
+  font-size: 1.35rem;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+  color: var(--text-primary);
+}
+
+.projectDescription {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: 2rem;
+  flex-grow: 1; /* Pushes the tech tags to the bottom */
 }
 
 .projectLinks {
@@ -783,26 +950,43 @@
 
 .projectLinkIcon {
   color: var(--text-secondary);
-  transition: color 0.2s;
+  transition: color 0.2s, transform 0.2s;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 0.5rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .projectLinkIcon:hover {
   color: white;
+  background: #3b82f6;
+  transform: scale(1.1);
 }
 
 .projectTech {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
-  margin-bottom: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--glass-border);
 }
 
 .projectTechTag {
+  font-family: 'Fira Code', 'Consolas', monospace;
   font-size: 0.75rem;
-  color: #3b82f6;
-  background: rgba(59, 130, 246, 0.1);
+  color: #9ca3af;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   padding: 0.25rem 0.5rem;
-  border-radius: 4px;
+  border-radius: 6px;
+  transition: color 0.2s, border-color 0.2s;
+}
+
+.projectCard:hover .projectTechTag {
+  border-color: rgba(59, 130, 246, 0.3);
+  color: #d1d5db;
 }
 
 /* Contact Section */
@@ -996,4 +1180,133 @@
   .contactBtn {
     flex: 1 1 100%;
   }
+}
+/* Modal Styles */
+.modalBackdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(8px);
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+}
+
+.modalContent {
+  background: var(--bg-color);
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+  width: 100%;
+  max-width: 800px;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+}
+
+.modalCloseBtn {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(0,0,0,0.5);
+  color: white;
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  z-index: 10;
+  transition: background 0.2s;
+}
+
+.modalCloseBtn:hover {
+  background: rgba(255, 59, 48, 0.8);
+}
+
+.modalImageContainer {
+  width: 100%;
+  height: 300px;
+  position: relative;
+}
+
+.modalImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.modalBody {
+  padding: 2.5rem;
+}
+
+.modalHeader {
+  margin-bottom: 1.5rem;
+}
+
+.modalTitle {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-top: 0.5rem;
+}
+
+.modalDescription {
+  color: var(--text-secondary);
+  line-height: 1.8;
+  font-size: 1.05rem;
+  margin-bottom: 2rem;
+}
+
+.modalDescription p {
+  margin-bottom: 1rem;
+}
+
+.modalSubtitle {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.modalTech {
+  margin-bottom: 2.5rem;
+}
+
+.modalActions {
+  display: flex;
+  gap: 1rem;
+}
+
+.modalActionBtn {
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 600;
+  transition: transform 0.2s, opacity 0.2s;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  color: var(--text-primary);
+}
+
+.modalActionBtn:hover {
+  transform: translateY(-2px);
+  background: var(--glass-border);
+}
+
+.primaryBtn {
+  background: #3b82f6;
+  color: white;
+  border-color: #3b82f6;
+}
+
+.primaryBtn:hover {
+  background: #2563eb;
+  color: white;
 }

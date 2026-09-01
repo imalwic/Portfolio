@@ -13,6 +13,8 @@ import { motion } from 'framer-motion';
 import CustomCursor from '../components/CustomCursor';
 import ThemeToggle from '../components/ThemeToggle';
 import CardWrapper from '../components/CardWrapper';
+import TerminalWidget from '../components/TerminalWidget';
+import ProjectModal, { Project } from '../components/ProjectModal';
 
 export default function Home() {
   const [roleText, setRoleText] = useState('');
@@ -20,6 +22,7 @@ export default function Home() {
   const [isDeleting, setIsDeleting] = useState(false);
   const [loopNum, setLoopNum] = useState(0);
   const [typingSpeed, setTypingSpeed] = useState(150);
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
   useEffect(() => {
     // Hide splash screen after 2.5 seconds
@@ -63,21 +66,36 @@ export default function Home() {
     return () => clearTimeout(timer);
   }, [roleText, isDeleting, loopNum, typingSpeed]);
 
-  const projects = [
+  const projects: Project[] = [
     {
       name: "EventHive Platform",
+      category: "Full Stack Application",
+      description: "A comprehensive event ticketing and management system with live seat-mapping capabilities.",
+      fullDescription: "EventHive is a modern event management and ticketing platform designed to handle high volumes of concurrent ticket sales. It features a fully interactive, live seat-mapping editor where organizers can draw custom seating charts and assign tiered pricing. \n\nThe system is built with a microservices-inspired architecture using Spring Boot and Postgres on the backend, ensuring robust transactional integrity during checkout. The frontend utilizes React and TypeScript with Zustand for state management, providing a blazing-fast, responsive user interface. Key features include QR-code based digital tickets, live sales analytics dashboards, and an automated email notification system.",
+      image: "/eventhive.jpg",
       tech: ["TypeScript", "Java", "Spring Boot", "React", "PostgreSQL"],
       github: "https://github.com/imalwic/eventhive-frontend",
+      liveLink: "#",
     },
     {
       name: "Dighayu Medical",
-      tech: ["TypeScript", "React", "Node.js"],
+      category: "Healthcare System",
+      description: "A modern medical clinic management system featuring patient records and appointment scheduling.",
+      fullDescription: "Dighayu Medical is a complete clinic management suite designed to digitize local medical practices. It replaces traditional paper-based filing with a secure, easily searchable digital patient record system. \n\nDoctors can manage their daily schedules through an intuitive calendar interface, track patient medical histories, prescribe medications, and generate digital invoices. Built using React and Node.js with a MongoDB backend, the system ensures data privacy and fast retrieval times. The UI was designed with a soft blue aesthetic to provide a calm, professional experience for healthcare workers.",
+      image: "/dighayu.jpg",
+      tech: ["TypeScript", "React", "Node.js", "Express", "MongoDB"],
       github: "https://github.com/imalwic/dighayu-medical",
+      liveLink: "#",
     },
     {
       name: "Lanka Route",
-      tech: ["JavaScript", "HTML", "CSS"],
+      category: "Web Application",
+      description: "A tourism and route planning platform to help travelers navigate and discover Sri Lanka.",
+      fullDescription: "Lanka Route is a vibrant tourism platform aimed at showcasing the beauty of Sri Lanka while providing practical tools for travelers. \n\nUsers can explore popular destinations, view scenic galleries, and use the built-in route planner to optimize their travel itineraries between cities like Kandy, Ella, and Galle. The application focuses heavily on frontend performance and beautiful, immersive UI design, utilizing modern CSS features and interactive maps to guide tourists. It also includes curated travel packages and historical information for major landmarks.",
+      image: "/lankaroute.jpg",
+      tech: ["JavaScript", "HTML", "CSS", "Google Maps API"],
       github: "https://github.com/imalwic/lanka-route",
+      liveLink: "#",
     },
   ];
 
@@ -201,9 +219,12 @@ export default function Home() {
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
         >
           <h2 className={styles.sectionTitle}>About Me</h2>
-          <p className={styles.aboutText}>
-            I am an Information Technology undergraduate passionately focused on building complete, end-to-end systems — from database design and backend architecture to AI-integrated features like intelligent chatbots. I love taking a project from a blank folder to a fully working product, whether that's designing a use case diagram from scratch or shipping a mobile app people can actually use. Right now, I'm deep in the full-stack ecosystem with React, NestJS, and Spring Boot, while exploring how to weave AI-powered assistants and real-time features like QR-based check-ins into real-world platforms. I've built everything from a bilingual pharmacy chatbot to a payment-integrated event ticketing system with a live seat-mapping editor, and I care as much about clean architecture and testing as I do about the final user experience. Beyond writing code, you'll find me exploring cloud infrastructure on AWS and Docker, sharpening my Linux skills, or contributing as Design Co-Lead at my university's IEEE RAS Student Branch.
-          </p>
+          <div className={styles.aboutContainer}>
+            <p className={styles.aboutText}>
+              I am an Information Technology undergraduate passionately focused on building complete, end-to-end systems — from database design and backend architecture to AI-integrated features like intelligent chatbots. I love taking a project from a blank folder to a fully working product, whether that's designing a use case diagram from scratch or shipping a mobile app people can actually use. Right now, I'm deep in the full-stack ecosystem with React, NestJS, and Spring Boot, while exploring how to weave AI-powered assistants and real-time features like QR-based check-ins into real-world platforms. I've built everything from a bilingual pharmacy chatbot to a payment-integrated event ticketing system with a live seat-mapping editor, and I care as much about clean architecture and testing as I do about the final user experience. Beyond writing code, you'll find me exploring cloud infrastructure on AWS and Docker, sharpening my Linux skills, or contributing as Design Co-Lead at my university's IEEE RAS Student Branch.
+            </p>
+            <TerminalWidget />
+          </div>
         </motion.section>
 
         {/* Journey Section */}
@@ -370,24 +391,37 @@ export default function Home() {
           <div className={styles.projectsGrid}>
             {projects.map((project, index) => (
               <CardWrapper key={index} delay={index * 0.1}>
-                <div className={styles.projectCard}>
-                  <div className={styles.projectHeader}>
-                    <h3 className={styles.projectTitle}>{project.name}</h3>
-                    <div className={styles.projectLinks}>
-                      <a href={project.github} target="_blank" rel="noopener noreferrer" className={styles.projectLinkIcon}>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.56v-2.18c-3.2.7-3.88-1.36-3.88-1.36-.52-1.33-1.28-1.69-1.28-1.69-1.05-.72.08-.71.08-.71 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.71 1.26 3.37.96.1-.75.4-1.26.73-1.55-2.55-.29-5.23-1.28-5.23-5.7 0-1.26.45-2.29 1.19-3.09-.12-.29-.51-1.47.11-3.07 0 0 .97-.31 3.18 1.18.92-.26 1.91-.39 2.89-.39.98 0 1.97.13 2.89.39 2.21-1.49 3.18-1.18 3.18-1.18.62 1.6.23 2.78.11 3.07.74.8 1.19 1.83 1.19 3.09 0 4.43-2.69 5.41-5.25 5.69.41.36.78 1.06.78 2.13v3.16c0 .31.21.68.8.56C20.21 21.39 23.5 17.08 23.5 12 23.5 5.65 18.35.5 12 .5z"></path></svg>
-                      </a>
-                    </div>
+                <div className={styles.projectCard} onClick={() => setSelectedProject(project)}>
+                  <div className={styles.projectImageWrapper}>
+                    <img src={project.image} alt={project.name} className={styles.projectImage} />
                   </div>
-                  <div className={styles.projectTech}>
-                    {project.tech.map((t, i) => (
-                      <span key={i} className={styles.projectTechTag}>{t}</span>
-                    ))}
+                  <div className={styles.projectContent}>
+                    <div className={styles.projectHeader}>
+                      <div className={styles.projectCategory}>{project.category}</div>
+                      <div className={styles.projectLinks}>
+                        <a href={project.github} target="_blank" rel="noopener noreferrer" onClick={(e) => e.stopPropagation()} className={styles.projectLinkIcon}>
+                          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.56v-2.18c-3.2.7-3.88-1.36-3.88-1.36-.52-1.33-1.28-1.69-1.28-1.69-1.05-.72.08-.71.08-.71 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.71 1.26 3.37.96.1-.75.4-1.26.73-1.55-2.55-.29-5.23-1.28-5.23-5.7 0-1.26.45-2.29 1.19-3.09-.12-.29-.51-1.47.11-3.07 0 0 .97-.31 3.18 1.18.92-.26 1.91-.39 2.89-.39.98 0 1.97.13 2.89.39 2.21-1.49 3.18-1.18 3.18-1.18.62 1.6.23 2.78.11 3.07.74.8 1.19 1.83 1.19 3.09 0 4.43-2.69 5.41-5.25 5.69.41.36.78 1.06.78 2.13v3.16c0 .31.21.68.8.56C20.21 21.39 23.5 17.08 23.5 12 23.5 5.65 18.35.5 12 .5z"></path></svg>
+                        </a>
+                      </div>
+                    </div>
+                    <h3 className={styles.projectTitle}>{project.name}</h3>
+                    <p className={styles.projectDescription}>{project.description}</p>
+                    <div className={styles.projectTech}>
+                      {project.tech.map((t, i) => (
+                        <span key={i} className={styles.projectTechTag}>{t}</span>
+                      ))}
+                    </div>
                   </div>
                 </div>
               </CardWrapper>
             ))}
           </div>
+
+          <ProjectModal 
+            project={selectedProject} 
+            isOpen={selectedProject !== null} 
+            onClose={() => setSelectedProject(null)} 
+          />
         </motion.section>
 
         {/* Tech Stack */}

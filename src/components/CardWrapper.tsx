@@ -47,7 +47,7 @@ export default function CardWrapper({ children, className = '', delay = 0 }: Car
       <Tilt options={defaultTiltOptions} style={{ height: '100%', width: '100%' }}>
         <div 
           ref={cardRef}
-          className={`relative overflow-hidden ${className}`}
+          className={`relative overflow-hidden h-full ${className}`}
           onMouseMove={handleMouseMove}
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
