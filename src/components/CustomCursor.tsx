@@ -6,10 +6,17 @@ import { motion } from 'framer-motion';
 export default function CustomCursor() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isHovering, setIsHovering] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
+    // Only show custom cursor glow on devices with hover capability (desktops)
+    if (window.matchMedia('(pointer: coarse)').matches) {
+      return;
+    }
+
     const updateMousePosition = (e: MouseEvent) => {
       setMousePosition({ x: e.clientX, y: e.clientY });
+      if (!isVisible) setIsVisible(true);
     };
 
     const handleMouseOver = (e: MouseEvent) => {
@@ -18,7 +25,8 @@ export default function CustomCursor() {
         target.tagName.toLowerCase() === 'a' ||
         target.tagName.toLowerCase() === 'button' ||
         target.closest('a') ||
-        target.closest('button')
+        target.closest('button') ||
+        target.classList.contains('clickable')
       ) {
         setIsHovering(true);
       } else {
@@ -26,57 +34,51 @@ export default function CustomCursor() {
       }
     };
 
+    const handleMouseLeave = () => {
+      setIsVisible(false);
+    };
+
     window.addEventListener('mousemove', updateMousePosition);
     window.addEventListener('mouseover', handleMouseOver);
+    document.body.addEventListener('mouseleave', handleMouseLeave);
 
     return () => {
       window.removeEventListener('mousemove', updateMousePosition);
       window.removeEventListener('mouseover', handleMouseOver);
+      document.body.removeEventListener('mouseleave', handleMouseLeave);
     };
-  }, []);
+  }, [isVisible]);
+
+  if (typeof window !== 'undefined' && window.matchMedia('(pointer: coarse)').matches) {
+    return null;
+  }
 
   return (
-    <>
-      <motion.div
-        className="cursor-dot"
-        animate={{
-          x: mousePosition.x - 4,
-          y: mousePosition.y - 4,
-        }}
-        transition={{ type: 'tween', ease: 'backOut', duration: 0 }}
-        style={{
-          position: 'fixed',
-          top: 0,
-          left: 0,
-          width: '8px',
-          height: '8px',
-          backgroundColor: 'var(--cursor-color)',
-          borderRadius: '50%',
-          pointerEvents: 'none',
-          zIndex: 9999,
-        }}
-      />
-      <motion.div
-        className="cursor-outline"
-        animate={{
-          x: mousePosition.x - 16,
-          y: mousePosition.y - 16,
-          scale: isHovering ? 1.5 : 1,
-          opacity: isHovering ? 0.5 : 0.2,
-        }}
-        transition={{ type: 'tween', ease: 'backOut', duration: 0.15 }}
-        style={{
-          position: 'fixed',
-          top: 0,
-          left: 0,
-          width: '32px',
-          height: '32px',
-          border: '2px solid var(--cursor-color)',
-          borderRadius: '50%',
-          pointerEvents: 'none',
-          zIndex: 9998,
-        }}
-      />
-    </>
+    <motion.div
+      animate={{
+        x: mousePosition.x - 200,
+        y: mousePosition.y - 200,
+        scale: isHovering ? 1.2 : 1,
+        opacity: isVisible ? (isHovering ? 0.8 : 0.4) : 0,
+      }}
+      transition={{
+        type: 'tween',
+        ease: 'backOut',
+        duration: 0.3, // Adds a smooth trailing delay
+      }}
+      style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        width: '400px',
+        height: '400px',
+        background: 'radial-gradient(circle, var(--cursor-color) 0%, rgba(139, 92, 246, 0) 50%)',
+        borderRadius: '50%',
+        pointerEvents: 'none',
+        zIndex: 9999,
+        mixBlendMode: 'screen',
+        filter: 'blur(40px)',
+      }}
+    />
   );
 }

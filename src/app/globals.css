@@ -34,10 +34,7 @@
 }
 
 @media (pointer: fine) {
-  * {
-    /* Hide default cursor for custom cursor on desktop only */
-    cursor: none !important; 
-  }
+  /* Removed cursor: none to allow native cursor alongside decorative glow */
 }
 
 @media (pointer: coarse) {
