@@ -24,6 +24,8 @@ export default function Home() {
   const [typingSpeed, setTypingSpeed] = useState(150);
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [formStatus, setFormStatus] = useState<'idle' | 'success' | 'error'>('idle');
 
   useEffect(() => {
     // Hide splash screen after 2.5 seconds
@@ -99,6 +101,37 @@ export default function Home() {
       liveLink: "#",
     },
   ];
+
+  const handleContactSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setFormStatus('idle');
+
+    const formData = new FormData(e.currentTarget);
+    formData.append("access_key", "3563cb8f-b696-4c61-9d75-a31b940a33d6");
+
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        body: formData
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        setFormStatus('success');
+        e.currentTarget.reset(); // clear form
+      } else {
+        console.error("Error submitting form", data);
+        setFormStatus('error');
+      }
+    } catch (error) {
+      console.error(error);
+      setFormStatus('error');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
     <>
@@ -636,32 +669,42 @@ export default function Home() {
 
             {/* Right Side - Form */}
             <div className={styles.contactRight}>
-              <form className={styles.contactForm}>
+              <form className={styles.contactForm} onSubmit={handleContactSubmit}>
                 <div className={styles.formGroup}>
                   <label>Subject/Heading</label>
-                  <input type="text" placeholder="What's this about? (e.g., 'Job Opportunity', 'Project Collaboration')" />
+                  <input type="text" name="subject" required placeholder="What's this about? (e.g., 'Job Opportunity', 'Project Collaboration')" />
                 </div>
                 <div className={styles.formRow}>
                   <div className={styles.formGroup}>
                     <label>Name</label>
-                    <input type="text" placeholder="Your Name" />
+                    <input type="text" name="name" required placeholder="Your Name" />
                   </div>
                   <div className={styles.formGroup}>
                     <label>Email</label>
-                    <input type="email" placeholder="your@email.com" />
+                    <input type="email" name="email" required placeholder="your@email.com" />
                   </div>
                 </div>
                 <div className={styles.formGroup}>
                   <label>Phone Number</label>
-                  <input type="text" placeholder="+94 77 123 4567" />
+                  <input type="text" name="phone" placeholder="+94 77 123 4567" />
                 </div>
                 <div className={styles.formGroup}>
                   <label>Message</label>
-                  <textarea placeholder="Tell me about your project..." rows={5}></textarea>
+                  <textarea name="message" required placeholder="Tell me about your project..." rows={5}></textarea>
                 </div>
-                <button type="submit" className={styles.submitBtn}>
-                  Send Message <FaPaperPlane />
+                <button type="submit" className={styles.submitBtn} disabled={isSubmitting}>
+                  {isSubmitting ? 'Sending...' : <>Send Message <FaPaperPlane /></>}
                 </button>
+                {formStatus === 'success' && (
+                  <p style={{ color: '#10b981', marginTop: '1rem', textAlign: 'center', fontWeight: 500 }}>
+                    Message sent successfully! I'll get back to you soon.
+                  </p>
+                )}
+                {formStatus === 'error' && (
+                  <p style={{ color: '#ef4444', marginTop: '1rem', textAlign: 'center', fontWeight: 500 }}>
+                    Oops! Something went wrong. Please try again.
+                  </p>
+                )}
               </form>
             </div>
           </div>
