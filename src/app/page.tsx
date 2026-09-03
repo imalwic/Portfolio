@@ -694,7 +694,14 @@ export default function Home() {
                 </div>
                 <div className={styles.formGroup}>
                   <label>Phone Number</label>
-                  <input type="text" name="phone" placeholder="+94 77 123 4567" />
+                  <input 
+                    type="tel" 
+                    name="phone" 
+                    pattern="[0-9]{10}" 
+                    title="Phone number must be exactly 10 digits"
+                    maxLength={10}
+                    placeholder="0771234567" 
+                  />
                 </div>
                 <div className={styles.formGroup}>
                   <label>Message</label>
