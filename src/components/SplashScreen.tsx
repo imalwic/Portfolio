@@ -46,7 +46,8 @@ export default function SplashScreen({ onComplete }: SplashScreenProps) {
     }, 40); // 40ms per tick
 
     return () => clearInterval(timer);
-  }, [onComplete]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div className={`${styles.splashContainer} ${isFadingOut ? styles.fadeOut : ''}`}>
