@@ -11,7 +11,7 @@ export default function SplashScreen({ onComplete }: SplashScreenProps) {
   const [isFadingOut, setIsFadingOut] = useState(false);
 
   useEffect(() => {
-    const lines = ASCII_ART.split('\n');
+    const lines = ASCII_ART.split('\\n');
     let currentLine = 0;
     
     // Animate line by line for a fast but noticeable hacker effect

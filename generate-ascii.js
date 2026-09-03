@@ -23,7 +23,8 @@ async function run() {
     asciiImage += '\\n';
   }
 
-  const jsContent = `export const ASCII_ART = \`\\n${asciiImage}\`;\\n`;
+  // Use JSON.stringify to safely export the string
+  const jsContent = `export const ASCII_ART = ${JSON.stringify(asciiImage)};\n`;
   fs.writeFileSync('src/components/asciiArt.ts', jsContent);
   console.log('ASCII art generated successfully!');
 }
