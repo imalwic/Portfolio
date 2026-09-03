@@ -17,7 +17,7 @@ export default function SplashScreen({ onComplete }: SplashScreenProps) {
     // Animate line by line for a fast but noticeable hacker effect
     const interval = setInterval(() => {
       if (currentLine < lines.length) {
-        setDisplayedText(prev => prev + (currentLine === 0 ? '' : '\\n') + lines[currentLine]);
+        setDisplayedText(prev => prev + (currentLine === 0 ? '' : '\n') + lines[currentLine]);
         currentLine++;
       } else {
         clearInterval(interval);
