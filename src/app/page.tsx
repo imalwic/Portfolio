@@ -104,10 +104,11 @@ export default function Home() {
 
   const handleContactSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const form = e.currentTarget;
     setIsSubmitting(true);
     setFormStatus('idle');
 
-    const formData = new FormData(e.currentTarget);
+    const formData = new FormData(form);
     formData.append("access_key", "3563cb8f-b696-4c61-9d75-a31b940a33d6");
 
     const object = Object.fromEntries(formData);
@@ -127,7 +128,7 @@ export default function Home() {
 
       if (response.status === 200) {
         setFormStatus('success');
-        e.currentTarget.reset(); // clear form
+        form.reset(); // clear form
       } else {
         console.error("Error submitting form", data);
         setFormStatus('error');
@@ -676,7 +677,7 @@ export default function Home() {
 
             {/* Right Side - Form */}
             <div className={styles.contactRight}>
-              <form className={styles.contactForm} onSubmit={handleContactSubmit}>
+              <form className={styles.contactForm} onSubmit={handleContactSubmit} autoComplete="off">
                 <div className={styles.formGroup}>
                   <label>Subject/Heading</label>
                   <input type="text" name="subject" required placeholder="What's this about? (e.g., 'Job Opportunity', 'Project Collaboration')" />
