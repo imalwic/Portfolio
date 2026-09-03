@@ -26,6 +26,7 @@ export default function Home() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formStatus, setFormStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const [activeSection, setActiveSection] = useState('');
 
   useEffect(() => {
     // Hide splash screen after 2.5 seconds
@@ -33,6 +34,30 @@ export default function Home() {
       setLoading(false);
     }, 2500);
     return () => clearTimeout(timer);
+  }, []);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const sections = ['about', 'journey', 'projects', 'tech', 'contact'];
+      let current = '';
+
+      for (const section of sections) {
+        const element = document.getElementById(section);
+        if (element) {
+          const rect = element.getBoundingClientRect();
+          // Adjust top offset to trigger active state earlier when scrolling down
+          if (rect.top <= 150) {
+            current = section;
+          }
+        }
+      }
+      setActiveSection(current);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    handleScroll(); // Trigger initially
+
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   useEffect(() => {
@@ -157,11 +182,11 @@ export default function Home() {
         </div>
         <div style={{display: 'flex', alignItems: 'center'}}>
           <nav className={styles.navLinks}>
-            <a href="#about">About</a>
-            <a href="#journey">Journey</a>
-            <a href="#projects">Projects</a>
-            <a href="#tech">Tech Stack</a>
-            <a href="#contact">Contact</a>
+            <a href="#about" className={activeSection === 'about' ? styles.activeNavLink : ''}>About</a>
+            <a href="#journey" className={activeSection === 'journey' ? styles.activeNavLink : ''}>Journey</a>
+            <a href="#projects" className={activeSection === 'projects' ? styles.activeNavLink : ''}>Projects</a>
+            <a href="#tech" className={activeSection === 'tech' ? styles.activeNavLink : ''}>Tech Stack</a>
+            <a href="#contact" className={activeSection === 'contact' ? styles.activeNavLink : ''}>Contact</a>
           </nav>
           <ThemeToggle className={styles.themeToggle} />
           <button 
@@ -176,11 +201,11 @@ export default function Home() {
         {/* Mobile Menu Dropdown */}
         <div className={`${styles.mobileMenu} ${isMobileMenuOpen ? styles.mobileMenuOpen : ''}`}>
           <nav className={styles.mobileNavLinks}>
-            <a href="#about" onClick={() => setIsMobileMenuOpen(false)}>About</a>
-            <a href="#journey" onClick={() => setIsMobileMenuOpen(false)}>Journey</a>
-            <a href="#projects" onClick={() => setIsMobileMenuOpen(false)}>Projects</a>
-            <a href="#tech" onClick={() => setIsMobileMenuOpen(false)}>Tech Stack</a>
-            <a href="#contact" onClick={() => setIsMobileMenuOpen(false)}>Contact</a>
+            <a href="#about" className={activeSection === 'about' ? styles.activeNavLink : ''} onClick={() => setIsMobileMenuOpen(false)}>About</a>
+            <a href="#journey" className={activeSection === 'journey' ? styles.activeNavLink : ''} onClick={() => setIsMobileMenuOpen(false)}>Journey</a>
+            <a href="#projects" className={activeSection === 'projects' ? styles.activeNavLink : ''} onClick={() => setIsMobileMenuOpen(false)}>Projects</a>
+            <a href="#tech" className={activeSection === 'tech' ? styles.activeNavLink : ''} onClick={() => setIsMobileMenuOpen(false)}>Tech Stack</a>
+            <a href="#contact" className={activeSection === 'contact' ? styles.activeNavLink : ''} onClick={() => setIsMobileMenuOpen(false)}>Contact</a>
           </nav>
         </div>
       </header>
