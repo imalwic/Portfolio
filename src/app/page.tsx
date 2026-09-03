@@ -16,6 +16,7 @@ import CardWrapper from '../components/CardWrapper';
 import TerminalWidget from '../components/TerminalWidget';
 import ProjectModal, { Project } from '../components/ProjectModal';
 import Footer from '../components/Footer';
+import SplashScreen from '../components/SplashScreen';
 
 export default function Home() {
   const [roleText, setRoleText] = useState('');
@@ -30,11 +31,7 @@ export default function Home() {
   const [activeSection, setActiveSection] = useState('');
 
   useEffect(() => {
-    // Hide splash screen after 2.5 seconds
-    const timer = setTimeout(() => {
-      setLoading(false);
-    }, 2500);
-    return () => clearTimeout(timer);
+    // Other setup like cursor can go here if needed
   }, []);
 
   useEffect(() => {
@@ -171,10 +168,7 @@ export default function Home() {
     <>
       <CustomCursor />
       {/* Splash Screen */}
-      <div className={`${styles.splashScreen} ${!loading ? styles.hidden : ''}`}>
-        <div className={styles.splashLogo}>IMALWIC.</div>
-        <div className={styles.splashName}>Imal Wickrama Arachchi</div>
-      </div>
+      {loading && <SplashScreen onComplete={() => setLoading(false)} />}
 
       <header className={styles.header}>
         <div className={styles.logoContainer}>
