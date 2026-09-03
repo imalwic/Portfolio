@@ -3,7 +3,7 @@
   top: 0;
   left: 0;
   right: 0;
-  z-index: 50;
+  z-index: 999;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -104,12 +104,12 @@
   top: 100%;
   left: 0;
   width: 100%;
-  background: var(--glass-bg);
+  background: var(--bg-color);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border-bottom: 1px solid var(--glass-border);
   flex-direction: column;
-  padding: 1rem 0;
+  padding: 2rem 0;
   transform: translateY(-100%);
   opacity: 0;
   pointer-events: none;
