@@ -8,7 +8,7 @@ import {
   SiPostman, SiCucumber, 
   SiSwagger 
 } from 'react-icons/si';
-import { FaDatabase, FaAws, FaJava, FaPython, FaHtml5, FaNodeJs, FaReact, FaDocker, FaGitAlt, FaGithub, FaJira, FaLeaf, FaArrowRight, FaDownload, FaBars, FaTimes } from 'react-icons/fa';
+import { FaDatabase, FaAws, FaJava, FaPython, FaHtml5, FaNodeJs, FaReact, FaDocker, FaGitAlt, FaGithub, FaJira, FaLeaf, FaArrowRight, FaDownload, FaBars, FaTimes, FaEnvelope, FaMapMarkerAlt, FaPaperPlane, FaLinkedinIn, FaWhatsapp } from 'react-icons/fa';
 import { motion } from 'framer-motion';
 import CustomCursor from '../components/CustomCursor';
 import ThemeToggle from '../components/ThemeToggle';
@@ -596,55 +596,74 @@ export default function Home() {
         {/* Contact */}
         <motion.section 
           id="contact" 
-          className={styles.section}
+          className={styles.contactSection}
           initial={{ opacity: 0, y: 40, scale: 0.95, filter: 'blur(10px)' }}
           whileInView={{ opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' }}
           viewport={{ once: true, amount: 0.15 }}
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
         >
-          <h2 className={styles.sectionTitle}>Let's Connect</h2>
-          <div className={styles.contactContainer}>
-            <a href="mailto:waiseelaka2002@gmail.com" className={styles.contactBtn}>
-              <div className={styles.contactIcon}>
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+          <div className={styles.contactSplit}>
+            {/* Left Side */}
+            <div className={styles.contactLeft}>
+              <h2 className={styles.contactTitle}>
+                Let's bring your ideas<br/>to <span className={styles.highlightTheme}>LIFE.</span>
+              </h2>
+              <p className={styles.contactDesc}>
+                I'm currently open to new full-time software engineering roles and select freelance projects. Whether you have a product idea to build from scratch or need an experienced developer for your team, let's talk.
+              </p>
+              
+              <div className={styles.contactInfo}>
+                <div className={styles.contactInfoItem}>
+                  <div className={styles.contactInfoIcon}>
+                    <FaEnvelope />
+                  </div>
+                  <span>waiseelaka2002@gmail.com</span>
+                </div>
+                <div className={styles.contactInfoItem}>
+                  <div className={styles.contactInfoIcon}>
+                    <FaMapMarkerAlt />
+                  </div>
+                  <span>Katubedda, Moratuwa, Sri Lanka</span>
+                </div>
               </div>
-              <span>Email</span>
-            </a>
-            
-            <a href="https://wa.me/94760696010" target="_blank" rel="noopener noreferrer" className={styles.contactBtn}>
-              <div className={styles.contactIcon}>
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+
+              <div className={styles.contactSocials}>
+                <a href="https://github.com/Imalwic" target="_blank" rel="noopener noreferrer"><FaGithub /></a>
+                <a href="https://www.linkedin.com/in/imal-wickrama-arachchi-083a67317" target="_blank" rel="noopener noreferrer"><FaLinkedinIn /></a>
+                <a href="https://wa.me/94760696010" target="_blank" rel="noopener noreferrer"><FaWhatsapp /></a>
               </div>
-              <span>WhatsApp</span>
-            </a>
-            
-            <a href="tel:0762807271" className={styles.contactBtn}>
-              <div className={styles.contactIcon}>
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
-              </div>
-              <span>Call</span>
-            </a>
-            
-            <a href="https://www.linkedin.com/in/imal-wickrama-arachchi-083a67317?utm_source=share_via&utm_content=profile&utm_medium=member_android" target="_blank" rel="noopener noreferrer" className={styles.contactBtn}>
-              <div className={styles.contactIcon}>
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
-              </div>
-              <span>LinkedIn</span>
-            </a>
-            
-            <a href="https://github.com/Imalwic" target="_blank" rel="noopener noreferrer" className={styles.contactBtn}>
-              <div className={styles.contactIcon}>
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
-              </div>
-              <span>GitHub</span>
-            </a>
-            
-            <a href="https://www.facebook.com/share/1DbLmZjHdA/" target="_blank" rel="noopener noreferrer" className={styles.contactBtn}>
-              <div className={styles.contactIcon}>
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
-              </div>
-              <span>Facebook</span>
-            </a>
+            </div>
+
+            {/* Right Side - Form */}
+            <div className={styles.contactRight}>
+              <form className={styles.contactForm}>
+                <div className={styles.formGroup}>
+                  <label>Subject/Heading</label>
+                  <input type="text" placeholder="What's this about? (e.g., 'Job Opportunity', 'Project Collaboration')" />
+                </div>
+                <div className={styles.formRow}>
+                  <div className={styles.formGroup}>
+                    <label>Name</label>
+                    <input type="text" placeholder="Your Name" />
+                  </div>
+                  <div className={styles.formGroup}>
+                    <label>Email</label>
+                    <input type="email" placeholder="your@email.com" />
+                  </div>
+                </div>
+                <div className={styles.formGroup}>
+                  <label>Phone Number</label>
+                  <input type="text" placeholder="+94 77 123 4567" />
+                </div>
+                <div className={styles.formGroup}>
+                  <label>Message</label>
+                  <textarea placeholder="Tell me about your project..." rows={5}></textarea>
+                </div>
+                <button type="submit" className={styles.submitBtn}>
+                  Send Message <FaPaperPlane />
+                </button>
+              </form>
+            </div>
           </div>
         </motion.section>
       </main>
