@@ -45,7 +45,6 @@ export default function Footer() {
             <ul className={styles.linksList}>
               <li><a href="mailto:waiseelaka2002@gmail.com">waiseelaka2002@gmail.com</a></li>
               <li><span>Sri Lanka</span></li>
-              <li><a href="#contact" className={styles.highlightLink}>Start a project &rarr;</a></li>
             </ul>
           </div>
 
