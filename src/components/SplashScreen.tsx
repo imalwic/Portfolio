@@ -15,13 +15,13 @@ export default function SplashScreen({ onComplete }: SplashScreenProps) {
 
   useEffect(() => {
     let iteration = 0;
-    let animationFrame: number;
+    let timer: NodeJS.Timeout;
 
-    const animate = () => {
+    timer = setInterval(() => {
       setDisplayedText(
         TARGET_TEXT.split("")
           .map((letter, index) => {
-            if (index < iteration) {
+            if (index < Math.floor(iteration)) {
               return TARGET_TEXT[index];
             }
             if (TARGET_TEXT[index] === ' ') {
@@ -33,27 +33,19 @@ export default function SplashScreen({ onComplete }: SplashScreenProps) {
       );
 
       if (iteration >= TARGET_TEXT.length) {
-        // Force the exact string at the end just to be 100% sure
-        setDisplayedText(TARGET_TEXT);
+        clearInterval(timer);
+        setDisplayedText(TARGET_TEXT); // Ensure final text is perfect
         
-        // Wait just a tiny bit so the final name is visible clearly, then fade out
         setTimeout(() => {
           setIsFadingOut(true);
-          setTimeout(onComplete, 400);
-        }, 300);
-        return;
+          setTimeout(onComplete, 400); // Wait for fade out
+        }, 500); // 500ms pause to read
       }
 
-      iteration += 1/2; // Speed of decoding (every 2 frames a letter is locked in)
-      
-      setTimeout(() => {
-        animationFrame = requestAnimationFrame(animate);
-      }, 30); // Fast scramble frames
-    };
+      iteration += 1 / 2; // Speed (resolves 1 letter every 2 ticks)
+    }, 40); // 40ms per tick
 
-    animationFrame = requestAnimationFrame(animate);
-
-    return () => cancelAnimationFrame(animationFrame);
+    return () => clearInterval(timer);
   }, [onComplete]);
 
   return (
