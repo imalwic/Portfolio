@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import styles from './SplashScreen.module.css';
-import { ASCII_ART } from './asciiArt';
 
 interface SplashScreenProps {
   onComplete: () => void;
@@ -11,36 +10,18 @@ const LETTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%&*";
 
 export default function SplashScreen({ onComplete }: SplashScreenProps) {
   const [displayedText, setDisplayedText] = useState('');
-  const [displayedAscii, setDisplayedAscii] = useState('');
   const [isFadingOut, setIsFadingOut] = useState(false);
+  const [imageLoaded, setImageLoaded] = useState(false);
 
   useEffect(() => {
     let iteration = 0;
-    let asciiLines = ASCII_ART.split('\\n');
-    // fallback if split by literal \n didn't work (depending on how node executed it)
-    if (asciiLines.length <= 1) {
-       asciiLines = ASCII_ART.split('\n');
-    }
-    
-    let currentAsciiLine = 0;
     let timer: NodeJS.Timeout;
     
-    // Flag to track when both animations are complete
+    // Flag to track when text animation is complete
     let textDone = false;
-    let asciiDone = false;
     
-    const checkCompletion = () => {
-      if (textDone && asciiDone) {
-        clearInterval(timer);
-        setTimeout(() => {
-          setIsFadingOut(true);
-          setTimeout(onComplete, 400); // Wait for fade out
-        }, 600); // Wait a bit after drawing is done
-      }
-    };
-
     timer = setInterval(() => {
-      // 1. Text Scramble Logic
+      // Text Scramble Logic
       if (iteration < TARGET_TEXT.length) {
         setDisplayedText(
           TARGET_TEXT.split("")
@@ -59,16 +40,13 @@ export default function SplashScreen({ onComplete }: SplashScreenProps) {
       } else if (!textDone) {
         setDisplayedText(TARGET_TEXT);
         textDone = true;
-        checkCompletion();
-      }
-      
-      // 2. ASCII Draw Logic
-      if (currentAsciiLine < asciiLines.length) {
-        setDisplayedAscii(prev => prev + (currentAsciiLine === 0 ? '' : '\n') + asciiLines[currentAsciiLine]);
-        currentAsciiLine++;
-      } else if (!asciiDone) {
-        asciiDone = true;
-        checkCompletion();
+        clearInterval(timer);
+        
+        // Wait a bit after drawing is done
+        setTimeout(() => {
+          setIsFadingOut(true);
+          setTimeout(onComplete, 400); // Wait for fade out
+        }, 600);
       }
 
     }, 30); // 30ms per tick
@@ -80,8 +58,13 @@ export default function SplashScreen({ onComplete }: SplashScreenProps) {
   return (
     <div className={`${styles.splashContainer} ${isFadingOut ? styles.fadeOut : ''}`}>
       <div className={styles.centerBox}>
-        <div className={styles.asciiWrapper}>
-          <pre className={styles.smallAscii}>{displayedAscii}</pre>
+        <div className={`${styles.imageWrapper} ${imageLoaded ? styles.imageVisible : ''}`}>
+          <img 
+            src="/profile.jpeg" 
+            alt="Imal Wickrama Arachchi" 
+            onLoad={() => setImageLoaded(true)}
+            className={styles.profileImageBW}
+          />
         </div>
         
         <div className={styles.hackerTextContainer}>

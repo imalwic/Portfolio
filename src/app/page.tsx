@@ -35,6 +35,9 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
+    // Force scroll to top on mount to prevent browser from restoring scroll position to contact section
+    window.scrollTo({ top: 0, behavior: 'instant' });
+    
     const handleScroll = () => {
       const sections = ['about', 'journey', 'projects', 'tech', 'contact'];
       let current = '';
