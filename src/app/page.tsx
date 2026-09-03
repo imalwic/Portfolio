@@ -15,6 +15,7 @@ import ThemeToggle from '../components/ThemeToggle';
 import CardWrapper from '../components/CardWrapper';
 import TerminalWidget from '../components/TerminalWidget';
 import ProjectModal, { Project } from '../components/ProjectModal';
+import Footer from '../components/Footer';
 
 export default function Home() {
   const [roleText, setRoleText] = useState('');
@@ -750,6 +751,7 @@ export default function Home() {
           </div>
         </motion.section>
       </main>
+      <Footer />
     </>
   );
 }
