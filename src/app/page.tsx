@@ -8,7 +8,7 @@ import {
   SiPostman, SiCucumber, 
   SiSwagger 
 } from 'react-icons/si';
-import { FaDatabase, FaAws, FaJava, FaPython, FaHtml5, FaNodeJs, FaReact, FaDocker, FaGitAlt, FaGithub, FaJira, FaLeaf, FaArrowRight, FaDownload } from 'react-icons/fa';
+import { FaDatabase, FaAws, FaJava, FaPython, FaHtml5, FaNodeJs, FaReact, FaDocker, FaGitAlt, FaGithub, FaJira, FaLeaf, FaArrowRight, FaDownload, FaBars, FaTimes } from 'react-icons/fa';
 import { motion } from 'framer-motion';
 import CustomCursor from '../components/CustomCursor';
 import ThemeToggle from '../components/ThemeToggle';
@@ -23,6 +23,7 @@ export default function Home() {
   const [loopNum, setLoopNum] = useState(0);
   const [typingSpeed, setTypingSpeed] = useState(150);
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     // Hide splash screen after 2.5 seconds
@@ -122,6 +123,24 @@ export default function Home() {
             <a href="#contact">Contact</a>
           </nav>
           <ThemeToggle className={styles.themeToggle} />
+          <button 
+            className={styles.mobileMenuBtn} 
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            aria-label="Toggle mobile menu"
+          >
+            {isMobileMenuOpen ? <FaTimes /> : <FaBars />}
+          </button>
+        </div>
+
+        {/* Mobile Menu Dropdown */}
+        <div className={`${styles.mobileMenu} ${isMobileMenuOpen ? styles.mobileMenuOpen : ''}`}>
+          <nav className={styles.mobileNavLinks}>
+            <a href="#about" onClick={() => setIsMobileMenuOpen(false)}>About</a>
+            <a href="#journey" onClick={() => setIsMobileMenuOpen(false)}>Journey</a>
+            <a href="#projects" onClick={() => setIsMobileMenuOpen(false)}>Projects</a>
+            <a href="#tech" onClick={() => setIsMobileMenuOpen(false)}>Tech Stack</a>
+            <a href="#contact" onClick={() => setIsMobileMenuOpen(false)}>Contact</a>
+          </nav>
         </div>
       </header>
 
