@@ -15,28 +15,45 @@ export default function SplashScreen({ onComplete }: SplashScreenProps) {
 
   useEffect(() => {
     let iteration = 0;
-    let timer: NodeJS.Timeout;
+    let animationFrame: number;
 
-    const typeLetter = () => {
-      setDisplayedText(TARGET_TEXT.substring(0, iteration));
+    const animate = () => {
+      setDisplayedText(
+        TARGET_TEXT.split("")
+          .map((letter, index) => {
+            if (index < iteration) {
+              return TARGET_TEXT[index];
+            }
+            if (TARGET_TEXT[index] === ' ') {
+              return ' '; // Keep spaces intact
+            }
+            return LETTERS[Math.floor(Math.random() * LETTERS.length)];
+          })
+          .join("")
+      );
 
       if (iteration >= TARGET_TEXT.length) {
-        // Name is fully displayed, wait a short moment so it can be read, then fade out
-        timer = setTimeout(() => {
+        // Force the exact string at the end just to be 100% sure
+        setDisplayedText(TARGET_TEXT);
+        
+        // Wait just a tiny bit so the final name is visible clearly, then fade out
+        setTimeout(() => {
           setIsFadingOut(true);
-          setTimeout(onComplete, 400); // 400ms fade out duration
-        }, 500); // 500ms pause to read the name
+          setTimeout(onComplete, 400);
+        }, 300);
         return;
       }
 
-      iteration++;
-      timer = setTimeout(typeLetter, 60); // Type next letter after 60ms
+      iteration += 1/2; // Speed of decoding (every 2 frames a letter is locked in)
+      
+      setTimeout(() => {
+        animationFrame = requestAnimationFrame(animate);
+      }, 30); // Fast scramble frames
     };
 
-    // Start typing
-    timer = setTimeout(typeLetter, 200); // Initial delay
+    animationFrame = requestAnimationFrame(animate);
 
-    return () => clearTimeout(timer);
+    return () => cancelAnimationFrame(animationFrame);
   }, [onComplete]);
 
   return (
