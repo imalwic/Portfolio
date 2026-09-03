@@ -110,15 +110,22 @@ export default function Home() {
     const formData = new FormData(e.currentTarget);
     formData.append("access_key", "3563cb8f-b696-4c61-9d75-a31b940a33d6");
 
+    const object = Object.fromEntries(formData);
+    const json = JSON.stringify(object);
+
     try {
       const response = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
-        body: formData
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json"
+        },
+        body: json
       });
 
       const data = await response.json();
 
-      if (data.success) {
+      if (response.status === 200) {
         setFormStatus('success');
         e.currentTarget.reset(); // clear form
       } else {
