@@ -32,15 +32,15 @@ export default function SplashScreen({ onComplete }: SplashScreenProps) {
       );
 
       if (iteration >= TARGET_TEXT.length) {
-        // Animation finished, wait a bit then fade out
+        // Animation finished, wait a very short time then fade out
         setTimeout(() => {
           setIsFadingOut(true);
-          setTimeout(onComplete, 800);
-        }, 800);
+          setTimeout(onComplete, 400); // 400ms fade out duration
+        }, 200); // 200ms pause
         return; // Stop animating
       }
 
-      iteration += 1 / 3; // Speed of resolving
+      iteration += 1; // Faster speed of resolving
       
       // We use setTimeout instead of requestAnimationFrame to slow down the scramble a bit
       setTimeout(() => {
