@@ -6,9 +6,6 @@ export default function Footer() {
 
   return (
     <footer className={styles.footer}>
-      {/* Background Grid Pattern */}
-      <div className={styles.gridOverlay}></div>
-      
       {/* Glowing Bottom Effect */}
       <div className={styles.bottomGlow}></div>
 

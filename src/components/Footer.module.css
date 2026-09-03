@@ -8,18 +8,6 @@
   font-family: var(--font-sans);
 }
 
-/* Subtle grid overlay for premium look */
-.gridOverlay {
-  position: absolute;
-  inset: 0;
-  background-size: 40px 40px;
-  background-image: linear-gradient(to right, var(--glass-border) 1px, transparent 1px),
-                    linear-gradient(to bottom, var(--glass-border) 1px, transparent 1px);
-  opacity: 0.3;
-  pointer-events: none;
-  z-index: 0;
-}
-
 /* Bottom subtle glowing effect */
 .bottomGlow {
   position: absolute;
