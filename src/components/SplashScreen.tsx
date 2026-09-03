@@ -15,43 +15,28 @@ export default function SplashScreen({ onComplete }: SplashScreenProps) {
 
   useEffect(() => {
     let iteration = 0;
-    const maxIterations = 30; // Number of scrambles before resolving
-    let animationFrame: number;
+    let timer: NodeJS.Timeout;
 
-    const animate = () => {
-      setDisplayedText(
-        TARGET_TEXT.split("")
-          .map((letter, index) => {
-            if (index < iteration) {
-              return TARGET_TEXT[index];
-            }
-            // Add a chance to show a random character
-            return LETTERS[Math.floor(Math.random() * LETTERS.length)];
-          })
-          .join("")
-      );
+    const typeLetter = () => {
+      setDisplayedText(TARGET_TEXT.substring(0, iteration));
 
       if (iteration >= TARGET_TEXT.length) {
-        // Animation finished, wait a very short time then fade out
-        setTimeout(() => {
+        // Name is fully displayed, wait a short moment so it can be read, then fade out
+        timer = setTimeout(() => {
           setIsFadingOut(true);
           setTimeout(onComplete, 400); // 400ms fade out duration
-        }, 200); // 200ms pause
-        return; // Stop animating
+        }, 500); // 500ms pause to read the name
+        return;
       }
 
-      iteration += 1; // Faster speed of resolving
-      
-      // We use setTimeout instead of requestAnimationFrame to slow down the scramble a bit
-      setTimeout(() => {
-         animationFrame = requestAnimationFrame(animate);
-      }, 40);
+      iteration++;
+      timer = setTimeout(typeLetter, 60); // Type next letter after 60ms
     };
 
-    // Start animation only after component mounts to avoid hydration mismatch
-    animationFrame = requestAnimationFrame(animate);
+    // Start typing
+    timer = setTimeout(typeLetter, 200); // Initial delay
 
-    return () => cancelAnimationFrame(animationFrame);
+    return () => clearTimeout(timer);
   }, [onComplete]);
 
   return (
